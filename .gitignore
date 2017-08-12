@@ -2,5 +2,6 @@
 
 illidan/temp
 
+illidan/illidan/__pycache__
 illidan/polls/__pycache__
-illidan/polls/__pycache__
+illidan/polls/migrations/__pycache__
