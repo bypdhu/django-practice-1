@@ -1,3 +1,6 @@
 .idea/
 
 illidan/temp
+
+illidan/__pycache__
+illidan/polls/__pycache__
