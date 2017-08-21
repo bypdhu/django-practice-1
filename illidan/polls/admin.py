@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Question, Choice
+from .models import Question, Choice, Snippet
 
 
 class ChoiceInline(admin.StackedInline):
@@ -22,7 +22,10 @@ class QuestionAdmin(admin.ModelAdmin):
 
     inlines = [ChoiceInline]
 
+class SnippetAdmin(admin.ModelAdmin):
+    list_display = ("title", "language", "code")
 
 # register Question and Choice to admin dashboard.
 admin.site.register(Question, QuestionAdmin)
 # admin.site.register(Choice)
+admin.site.register(Snippet, SnippetAdmin)
