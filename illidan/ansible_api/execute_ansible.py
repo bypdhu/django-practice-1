@@ -7,6 +7,8 @@ class ExecuteAnsible(object):
         self.data = dict(data)
 
     def run_command(self):
+        print(self.data)
+        print("servers: " + self.data['servers'])
         host = Api(self.data['servers'], connection='smart')
 
         result = host.command(self.data['module_args'])
