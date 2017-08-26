@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 from pprint import pformat
 
 from ansible import inventory as ansible_inventory
