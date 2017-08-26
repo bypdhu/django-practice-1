@@ -50,13 +50,13 @@ class ModuleRunner(object):
     def hookup(self, api):
         """ Hooks this module up to the given api. """
 
-        assert not hasattr(api, self.module_name), """
-                    '{}' conflicts with existing attribute
-                """.format(self.module_name)
+        # assert not hasattr(api, self.module_name), """
+        #             '{}' conflicts with existing attribute
+        #         """.format(self.module_name)
 
         self.api = api
-
-        setattr(api, self.module_name, self.execute)
+        if not hasattr(api, self.module_name):
+            setattr(api, self.module_name, self.execute)
 
     def get_module_args(self, args, kwargs):
         # escape equality sign, until this is fixed:
