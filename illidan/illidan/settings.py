@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     'polls.apps.PollsConfig',  # add app:polls to project:illidan
+    'ansible_api.apps.AnsibleApiConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
