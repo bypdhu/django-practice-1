@@ -9,7 +9,7 @@ class ExecuteAnsible(object):
     def run_command(self):
         host = Api(self.data['servers'], connection='smart')
 
-        result = host[self.data['module_name']][self.data['module_args']]
+        result = host.command(self.data['module_args'])
 
         return result
 
