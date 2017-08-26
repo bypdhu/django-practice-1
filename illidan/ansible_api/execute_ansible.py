@@ -13,7 +13,7 @@ class ExecuteAnsible(object):
         host = Api(self.data['servers'], connection='smart')
         runner = ModuleRunner("shell")
         runner.hookup(host)
-        result = runner.execute(self.data)
+        result = runner.execute(self.data['module_args'])
 
         print("resutl: " + result)
 
