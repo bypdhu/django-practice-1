@@ -75,7 +75,10 @@ class ModuleRunner(object):
         """
 
         assert self.is_hooked_up, "the module should be hooked up to the api"
-
+        print("============")
+        print(args)
+        print("============")
+        print(kwargs)
         self.module_args = module_args = self.get_module_args(args, kwargs)
 
         loader = DataLoader()
