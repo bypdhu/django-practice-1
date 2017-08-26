@@ -1,3 +1,4 @@
+from .ansible_api import ModuleRunner
 from .ansible_api import Api
 
 
@@ -10,8 +11,11 @@ class ExecuteAnsible(object):
         print(self.data)
         print("servers: " + self.data['servers'])
         host = Api(self.data['servers'], connection='smart')
+        runner = ModuleRunner(self.data['module_name'])
+        runner.hookup(host)
+        result = runner.execute(self.data)
 
-        result = host.command(self.data['module_args'])
+        print("resutl: " + result)
 
         return result
 
