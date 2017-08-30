@@ -80,6 +80,8 @@ class ModuleRunner(object):
         print("============")
         print(kwargs)
         self.module_args = module_args = self.get_module_args(args, kwargs)
+        print("=========")
+        print(module_args)
 
         loader = DataLoader()
         variable_manager = VariableManager()
