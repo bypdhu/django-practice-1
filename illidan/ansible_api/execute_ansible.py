@@ -38,7 +38,7 @@ passwords = dict(vault_pass='secret')
 results_callback = ResultCallback()
 
 # create inventory and pass to var manager
-inventory = Inventory(loader=loader, variable_manager=variable_manager, host_list='localhost')
+inventory = Inventory(loader=loader, variable_manager=variable_manager, host_list='localhost,')
 variable_manager.set_inventory(inventory)
 
 # create play with tasks
@@ -65,6 +65,9 @@ try:
         stdout_callback=results_callback,  # Use our custom callback instead of the ``default`` callback plugin
     )
     result = tqm.run(play)
+    print(result)
 finally:
     if tqm is not None:
         tqm.cleanup()
+
+
