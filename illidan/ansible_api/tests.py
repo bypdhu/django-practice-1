@@ -11,7 +11,7 @@ from ansible_api import Api, ModuleRunner
 api = Api("localhost")
 
 # inventory.HOSTS_PATTERNS_CACHE['all'] = 'all'
-result = api.command("ls -alF")
+result = api.command("ls -alF", hosts='all')
 
 print(result)
 
