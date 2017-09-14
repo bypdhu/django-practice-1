@@ -77,13 +77,21 @@ WSGI_APPLICATION = 'illidan.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'illidan',
+    #     'USER': 'root',
+    #     'PASSWORD': 'root',
+    #     'HOST': '10.99.70.38',
+    #     'PORT': '3306',
+    # }
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'illidan',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': '10.99.70.38',
-        'PORT': '3306',
+    'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+    'NAME': 'db/illidan.db',                      # Or path to database file if using sqlite3.
+    'USER': '',                      # Not used with sqlite3.
+    'PASSWORD': '',                  # Not used with sqlite3.
+    'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+    'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
 
