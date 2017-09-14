@@ -28,7 +28,7 @@ def ansible_command(request):
         # run ansible command
 
         # data_dict = json.loads(data)
-        exec_ansible = ExecuteAnsible(data)
+        exec_ansible = ExecuteAnsible('command', data)
         res = exec_ansible.run()
 
         print(res)
