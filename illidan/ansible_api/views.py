@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import json
+
 from django.http import JsonResponse
 from django.shortcuts import render
-
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from rest_framework.exceptions import ParseError
@@ -26,10 +27,10 @@ def ansible_command(request):
 
         # run ansible command
 
-        ansible_exe = ExecuteAnsible(data)
-
-        res = ansible_exe.run_command()
+        data_dict = json.loads(data)
+        exec_ansible = ExecuteAnsible(data_dict)
+        res = exec_ansible.run()
 
         print(res)
 
-        return JsonResponse(res, safe=False, status=status.HTTP_201_CREATED)
+        return JsonResponse(res, safe=False, status=status.HTTP_200_OK)
