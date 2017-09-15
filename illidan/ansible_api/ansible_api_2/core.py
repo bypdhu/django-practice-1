@@ -66,7 +66,8 @@ class Api(object):
         pb_options = Options(listtags=False, listtasks=False,
                              listhosts=False, syntax=False, connection='ssh',
                              module_path=None, forks=forks, remote_user='ansible',
-                             private_key_file=None, sftp_extra_args=None, scp_extra_args=None,
+                             private_key_file=None, ssh_common_args=None, ssh_extra_args=None,
+                             sftp_extra_args=None, scp_extra_args=None,
                              become=sudo, become_method='sudo', become_user='root',
                              verbosity=None, check=False)
         passwords = {}
