@@ -16,7 +16,8 @@ def handle_request():
     user_data = json.loads(request.get_data())
     print(user_data)
     try:
-        result = Api(**user_data)
+        api = Api(**user_data)
+        result = api.run_cmd()
         return jsonify(result), 200
 
     except Exception as e:
