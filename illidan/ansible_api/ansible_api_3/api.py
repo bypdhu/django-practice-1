@@ -19,6 +19,8 @@ __metaclass__ = type
 class Api(object):
     def __init__(self, **kwargs):
         self.options = kwargs
+        print("self.options is:")
+        print(self.options)
         pass
 
     def _play_ds(self, name, pattern):
