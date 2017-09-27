@@ -39,10 +39,9 @@ class Api(object):
         loader = DataLoader()
 
         variable_manager = VariableManager()
-        # variable_manager.extra_vars = load_extra_vars(loader=loader, options=self.options)
-        # variable_manager.options_vars = load_options_vars(self.options)
+        variable_manager.extra_vars = self.options.extra_vars
 
-        inventory = Inventory(loader=loader, variable_manager=variable_manager, host_list=self.options.inventory)
+        inventory = self.options.inventory
         variable_manager.set_inventory(inventory)
 
         play_ds = self._play_ds(self.options.name, self.options.pattern)
