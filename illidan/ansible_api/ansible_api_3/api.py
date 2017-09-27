@@ -39,7 +39,11 @@ class Api(object):
         loader = DataLoader()
 
         variable_manager = VariableManager()
+        print("options.extra_vars")
+        print(self.options.extra_vars)
         variable_manager.extra_vars = self.options.extra_vars
+        print("variable_manager.extra_vars")
+        print(variable_manager.extra_vars)
 
         inventory = self.options.inventory
         variable_manager.set_inventory(inventory)
