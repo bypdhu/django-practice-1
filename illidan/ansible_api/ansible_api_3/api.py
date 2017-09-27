@@ -3,6 +3,8 @@
 
 from __future__ import (absolute_import, division, print_function)
 
+from collections import namedtuple
+
 from ansible.executor.task_queue_manager import TaskQueueManager
 from ansible.inventory import Inventory
 from ansible.parsing.dataloader import DataLoader
@@ -18,18 +20,48 @@ __metaclass__ = type
 
 class Api(object):
     def __init__(self, **kwargs):
-        self.options = kwargs
-        print("self.options is:")
-        print(self.options)
-        pass
+        self.Options = namedtuple('Options', ['listtags', 'listtasks', 'listhosts',
+                                              'syntax', 'connection', 'module_path', 'forks', 'remote_user',
+                                              'private_key_file', 'ssh_common_args', 'ssh_extra_args',
+                                              'sftp_extra_args', 'scp_extra_args', 'become', 'become_method',
+                                              'become_user', 'verbosity', 'check',
+                                              'extra_vars', 'inventory', 'module_name', 'module_args',
+                                              'name', 'pattern'])
+        self.pb_options = self.Options(listtags=self.kwargs.get('listtags', False),
+                                       listtasks=self.kwargs.get('listtasks', False),
+                                       listhosts=self.kwargs.get('listhosts', False),
+                                       syntax=self.kwargs.get('syntax', False),
+                                       connection=self.kwargs.get('connection', 'ssh'),
+                                       module_path=self.kwargs.get('module_path', None),
+                                       forks=self.kwargs.get('forks', 100),
+                                       remote_user=self.kwargs.get('remote_user', 'ansible'),
+                                       private_key_file=self.kwargs.get('private_key_file', None),
+                                       ssh_common_args=self.kwargs.get('ssh_common_args', None),
+                                       ssh_extra_args=self.kwargs.get('ssh_extra_args', None),
+                                       sftp_extra_args=self.kwargs.get('sftp_extra_args', False),
+                                       scp_extra_args=self.kwargs.get('scp_extra_args', False),
+                                       become=self.kwargs.get('become', False),
+                                       become_method=self.kwargs.get('become_method', 'sudo'),
+                                       become_user=self.kwargs.get('become_user', 'root'),
+                                       verbosity=self.kwargs.get('listtags', None),
+                                       check=self.kwargs.get('check', False),
+                                       extra_vars=self.kwargs.get('extra_vars', None),
+                                       inventory=self.kwargs.get('inventory', "localhost"),
+                                       module_name=self.kwargs.get('module_name', "command"),
+                                       module_args=self.kwargs.get('module_args', None),
+                                       name=self.kwargs.get('name', ''),
+                                       pattern=self.kwargs.get('pattern', 'all'),
+                                       )
+        self.kwargs = kwargs
 
     def _play_ds(self, name, pattern):
-        check_raw = self.options.module_name in ('command', 'win_command', 'shell', 'win_shell', 'script', 'raw')
+        check_raw = self.pb_options.module_name in ('command', 'win_command', 'shell', 'win_shell', 'script', 'raw')
         return dict(
-            name = name,
-            hosts = pattern,
-            gather_facts = 'no',
-            tasks = [ dict(action=dict(module=self.options.module_name, args=parse_kv(self.options.module_args, check_raw=check_raw))) ]
+            name=name,
+            hosts=pattern,
+            gather_facts='no',
+            tasks=[dict(action=dict(module=self.pb_options.module_name,
+                                    args=parse_kv(self.pb_options.module_args, check_raw=check_raw)))]
         )
 
     def run_cmd(self):
@@ -39,16 +71,13 @@ class Api(object):
         loader = DataLoader()
 
         variable_manager = VariableManager()
-        print("options.extra_vars")
-        print(self.options.extra_vars)
-        variable_manager.extra_vars = self.options.extra_vars
-        print("variable_manager.extra_vars")
-        print(variable_manager.extra_vars)
+        variable_manager.extra_vars = load_extra_vars(loader=loader, options=self.pb_options)
+        variable_manager.options_vars = load_options_vars(self.pb_options)
 
-        inventory = self.options.inventory
+        inventory = Inventory(loader=loader, variable_manager=variable_manager, host_list=self.pb_options.inventory)
         variable_manager.set_inventory(inventory)
 
-        play_ds = self._play_ds(self.options.name, self.options.pattern)
+        play_ds = self._play_ds(self.pb_options.name, self.pb_options.pattern)
         play = Play().load(play_ds, variable_manager=variable_manager, loader=loader)
 
         self._tqm = None
@@ -57,7 +86,7 @@ class Api(object):
                 inventory=inventory,
                 variable_manager=variable_manager,
                 loader=loader,
-                options=self.options,
+                options=self.pb_options,
                 passwords=passwords,
                 stdout_callback=CallbackWrap(),
             )
