@@ -2,7 +2,7 @@ import json
 
 from flask import Flask, request, abort, jsonify
 
-from .api import Api
+from api import Api
 
 VERSION = '1.0.0'
 app = Flask(__name__)

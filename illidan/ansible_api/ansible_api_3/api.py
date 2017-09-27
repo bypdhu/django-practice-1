@@ -11,7 +11,7 @@ from ansible.playbook import Play
 from ansible.utils.vars import load_extra_vars, load_options_vars
 from ansible.vars import VariableManager
 
-from .ansible_wrapper import CallbackWrap
+from ansible_wrapper import CallbackWrap
 
 __metaclass__ = type
 
