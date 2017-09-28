@@ -3,6 +3,7 @@
 
 from __future__ import (absolute_import, division, print_function)
 
+import json
 from collections import namedtuple
 
 from ansible.executor.task_queue_manager import TaskQueueManager
@@ -92,9 +93,9 @@ class Api(object):
             )
 
             rc = self._tqm.run(play)
-            detail = self._tqm._stdout_callback._dump_results
-            print("self._tqm._stdout_callback._dump_results")
-            print(self._tqm._stdout_callback._dump_results)
+            detail = json.loads(self._tqm._stdout_callback._dump_results)
+            print("json.loads.self._tqm._stdout_callback._dump_results")
+            print(json.loads(self._tqm._stdout_callback._dump_results))
             print("self._tqm._stdout_callback dir")
             print(dir(self._tqm._stdout_callback))
         finally:
