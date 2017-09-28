@@ -88,7 +88,7 @@ class Api(object):
                 loader=loader,
                 options=self.pb_options,
                 passwords=passwords,
-                stdout_callback=CallbackWrap(),
+                # stdout_callback=CallbackWrap(),
             )
 
             rc = self._tqm.run(play)
