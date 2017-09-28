@@ -92,9 +92,9 @@ class Api(object):
             )
 
             rc = self._tqm.run(play)
-            detail = self._tqm._stdout_callback
-            print("self._tqm._stdout_callback")
-            print(self._tqm._stdout_callback)
+            detail = self._tqm._stdout_callback._dump_results
+            print("self._tqm._stdout_callback._dump_results")
+            print(self._tqm._stdout_callback._dump_results)
             print("self._tqm._stdout_callback dir")
             print(dir(self._tqm._stdout_callback))
         finally:
