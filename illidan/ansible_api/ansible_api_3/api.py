@@ -66,7 +66,7 @@ class Api(object):
 
     def run_cmd(self):
 
-        passwords = {}
+        passwords = {'conn_pass': "Ejuzhanglei@123", 'become_pass': "Ejuzhanglei@123"}
 
         loader = DataLoader()
 
